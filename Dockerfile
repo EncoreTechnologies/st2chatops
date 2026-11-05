@@ -5,6 +5,7 @@ WORKDIR /app
 # .npmrc applies the supply-chain guardrails: no install scripts, no git dependencies.
 # The tree has no native modules, so no compiler is needed.
 COPY package.json npm-shrinkwrap.json .npmrc ./
+COPY vendor ./vendor
 RUN npm ci --omit=dev --no-audit --no-fund && npm cache clean --force
 
 COPY bin ./bin

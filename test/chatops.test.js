@@ -86,6 +86,12 @@ test('lists the aliases in help', async () => {
   await waitFor(new RegExp(`\\${ALIAS}pack get <pack> - Get information about installed StackStorm pack`), from);
 });
 
+test('lists the aliases when help is addressed by name too', async () => {
+  // hubot 14's built-in help would answer this one; scripts/st2-help.js hands it to hubot-help
+  const from = say(`${process.env.HUBOT_NAME || 'hubot'} help pack`);
+  await waitFor(/pack get <pack> - Get information about installed StackStorm pack/, from);
+});
+
 test('runs an alias and posts the result back to chat', async () => {
   // the reply arrives through StackStorm: execution -> chatops.notify rule -> stream -> hubot
   const from = say(`${ALIAS}pack get core`);
